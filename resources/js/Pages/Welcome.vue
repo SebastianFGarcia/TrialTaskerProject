@@ -30,10 +30,9 @@ defineProps({
                 Registrar</Link>
             </template>
         </div>
-        <div class="container mx-auto p-6 lg:p-8">
 
             <!-- Heading -->
-            <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class=" container mx-auto p-6 lg:p-8 grid grid-cols-1 md:grid-cols-2">
                 <div class="flex flex-col items-center justify-center">
 
                     <h1 class="text-3xl md:text-5xl font-bold leading-tight text-[#33292e] font-serif">Maneja tus casos de manera más eficiente con TrialTasker</h1>
@@ -41,10 +40,17 @@ defineProps({
                 </div>
                 <LawyerPana class="max-w-md mx-auto" />
             </div>
+            <!-- Message -->
 
+            <div class="mt-4 bg-[#615a5d]">
+                <div class="container mx-auto max-w-3xl p-6 lg:p-8 text-center">
+
+                    <p class="text-white">"Con TrialTasker, manejar tus casos nunca había sido tan fácil. Nuestra aplicación está diseñada para ser intuitiva y fácil de usar, con una interfaz limpia y sencilla que te permite acceder a tus casos en pocos clics. Además, te guiamos paso a paso a través de todo el proceso, desde la creación de un caso hasta la gestión de documentos y tareas. ¡No necesitas ser un experto en tecnología para usar TrialTasker!"</p>
+                </div>
+            </div>
 
             <!-- Features -->
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class=" container mx-auto p-6 lg:p-8 mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="border rounded-lg p-6 md:p-8 bg-white shadow">
                     <h2 class="text-xl md:text-2xl font-bold text-[#33292e] mb-4">Organiza tus casos</h2>
                     <p class="text-sm md:text-base text-[#615a5d] mb-4">Crea y organiza tus casos de manera fácil y rápida, mantén la información importante en un solo lugar y nunca pierdas el rastro de tus casos.</p>
@@ -60,13 +66,11 @@ defineProps({
             </div>
 
             <!-- Call to action -->
-            <div class="mt-16 text-center">
+            <div class="container mx-auto p-6 lg:p-8 mt-16 text-center">
                 <h2 class="text-4xl font-bold text-[#33292e] mb-4">Regístrate ahora y prueba TrialTasker gratis</h2>
                 <p class="text-[#615a5d] text-xl mb-8">Empieza a manejar tus casos de manera más eficiente hoy mismo.</p>
                 <Link v-if="canRegister" :href="route('register')" class="inline-block py-4 px-8 text-white bg-[#33292e] rounded-lg hover:bg-[#261f23] transition duration-200">Registrate ahora</Link>
             </div>
-
-        </div>
         <!-- footer -->
         <div class="bg-[#a49ea1] text-[#33292e] py-8 mt-16">
             <div class="container mx-auto px-6 lg:px-8">
