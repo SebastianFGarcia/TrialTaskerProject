@@ -26,7 +26,7 @@ defineProps({
                 Iniciar Sesión</Link>
 
                 <Link v-if="canRegister" :href="route('register')"
-                    class="font-semibold text-white bg-[#C19d88] hover:bg-[#a98a78] text-sm px-5 py-2 rounded-full">
+                    class="font-semibold text-white bg-[#b1907d] hover:bg-[#7c6558] text-sm px-5 py-2 rounded-full">
                 Registrar</Link>
             </template>
         </div>
@@ -66,9 +66,9 @@ defineProps({
 
             <!-- Call to action -->
             <div class="container mx-auto p-6 lg:p-8 mt-16 text-center">
-                <h2 class="text-4xl font-bold text-[#33292e] mb-4">Regístrate ahora y prueba TrialTasker gratis</h2>
+                <h2 class="text-4xl font-bold text-[#33292e] mb-4">Regístrate ahora y prueba TrialTasker</h2>
                 <p class="text-[#615a5d] text-xl mb-8">Empieza a manejar tus casos de manera más eficiente hoy mismo.</p>
-                <Link v-if="canRegister" :href="route('register')" class="inline-block py-4 px-8 text-white bg-[#C19d88] rounded-lg hover:bg-[#a98a78] transition duration-200">Registrate ahora</Link>
+                <Link v-if="canRegister" :href="route('register')" class="inline-block py-4 px-8 text-white bg-[#b1907d] rounded-lg hover:bg-[#7c6558] transition duration-200">Registrate ahora</Link>
             </div>
         <!-- footer -->
         <div class="bg-[#a49ea1] text-[#33292e] py-8 mt-16">
