@@ -13,8 +13,8 @@
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left text-gray-500 ">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-5">
-                                <tr>
-                                    <th scope="col" class="px-4 py-2">
+                                <tr class="border">
+                                    <th scope="col" class="px-4 py-2 ">
                                         <div class="flex items-center justify-between">
                                             Nombre
                                             <a @click="orderList('name')"><IconArrowsSort :size="17"/></a>
@@ -43,11 +43,11 @@
                             </thead>
                             <tbody>
                                 <tr class="bg-white border-b " v-for="user in users.data" :key="user.id">
-                                    <td class="border px-4 py-2">{{ user.name }}</td>
-                                    <td class="border px-4 py-2">{{ user.email }}</td>
-                                    <td class="border px-4 py-2">{{ user.phone }}</td>
-                                    <td class="border px-4 py-2">{{ user.address }}</td> 
-                                    <td class="border px-4 py-2 flex justify-center content-center">
+                                    <td class=" px-4 py-2">{{ user.name }}</td>
+                                    <td class=" px-4 py-2">{{ user.email }}</td>
+                                    <td class=" px-4 py-2">{{ user.phone }}</td>
+                                    <td class=" px-4 py-2">{{ user.address }}</td> 
+                                    <td class=" px-4 py-2 flex justify-center content-center">
                                         <Checkbox name="is_active" :checked="user.is_active==1 ? true : false" @change="changeStatus(user.id)"/>
                                     </td>
                                 </tr>
