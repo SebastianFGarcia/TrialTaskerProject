@@ -95,13 +95,13 @@ function orderList(name) {
 }
 
 function getData(sort = '', per_page = '', page = '', search = '', direction = '') {
-
     const url = new URL(window.location.href)
     direction = direction != '' ? direction : url.searchParams.get('direction');
     sort = sort != '' ? sort : url.searchParams.get('sort');
     per_page = per_page != '' ? per_page : url.searchParams.get('per_page');
     page = page != '' ? page : users.last_page > url.searchParams.get('page') ? url.searchParams.get('page') : 1;
     search = search != '' ? search : url.searchParams.get('search');
+    console.log(direction, sort, per_page, page, search);
 
     let data = {};
     if (search && per_page && sort && direction && page) data = { search: search, per_page: per_page, sort: sort, direction: direction, page: page, }
@@ -109,6 +109,7 @@ function getData(sort = '', per_page = '', page = '', search = '', direction = '
     else if (sort && direction && per_page && page) data = { sort: sort, direction: direction, per_page: per_page, page: page, }
     else if (search && per_page && page) data = { search: search, per_page: per_page, page: page, }
     else if (search && per_page) data = { search: search, per_page: per_page, }
+    else if (per_page && page) data = {per_page:per_page, page:page}
     else if (sort && direction && per_page) data = { sort: sort, direction: direction, per_page: per_page, }
     else if (sort && direction && search) data = { sort: sort, direction: direction, per_page: per_page, }
     else if (sort && direction) data = { sort: sort, direction: direction, }
@@ -162,6 +163,7 @@ function changeStatus(id) {
                         'El usuario no ha sido desactivado.',
                         'error'
                     )
+                    getData();
                 }
             });
         } else {
