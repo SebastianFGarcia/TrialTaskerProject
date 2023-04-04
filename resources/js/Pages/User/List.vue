@@ -9,7 +9,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <HeaderTable route_to="users" :only="['users']"/>
+                    <HeaderTable route_to="users" :getData="getData"/>
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left text-gray-500 ">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-5">
@@ -17,25 +17,33 @@
                                     <th scope="col" class="px-4 py-2 ">
                                         <div class="flex items-center justify-between">
                                             Nombre
-                                            <a @click="orderList('name')"><IconArrowsSort :size="17"/></a>
+                                            <a @click="orderList('name')">
+                                                <IconArrowsSort :size="17" />
+                                            </a>
                                         </div>
                                     </th>
                                     <th scope="col" class="px-4 py-2">
                                         <div class="flex items-center justify-between">
                                             Correo Electronico
-                                            <a @click="orderList('email')"><IconArrowsSort :size="17"/></a>
+                                            <a @click="orderList('email')">
+                                                <IconArrowsSort :size="17" />
+                                            </a>
                                         </div>
                                     </th>
                                     <th scope="col" class="px-4 py-2">
                                         <div class="flex items-center justify-between">
                                             Telefono
-                                            <a @click="orderList('phone')"><IconArrowsSort :size="17"/></a>
+                                            <a @click="orderList('phone')">
+                                                <IconArrowsSort :size="17" />
+                                            </a>
                                         </div>
                                     </th>
                                     <th scope="col" class="px-4 py-2">
                                         <div class="flex items-center justify-between">
                                             Dirección
-                                            <a @click="orderList('address')"><IconArrowsSort :size="17"/></a>
+                                            <a @click="orderList('address')">
+                                                <IconArrowsSort :size="17" />
+                                            </a>
                                         </div>
                                     </th>
                                     <th class="px-4 py-2">Acciones</th>
@@ -46,15 +54,16 @@
                                     <td class=" px-4 py-2">{{ user.name }}</td>
                                     <td class=" px-4 py-2">{{ user.email }}</td>
                                     <td class=" px-4 py-2">{{ user.phone }}</td>
-                                    <td class=" px-4 py-2">{{ user.address }}</td> 
+                                    <td class=" px-4 py-2">{{ user.address }}</td>
                                     <td class=" px-4 py-2 flex justify-center content-center">
-                                        <Checkbox name="is_active" :checked="user.is_active==1 ? true : false" @change="changeStatus(user.id)"/>
+                                        <Checkbox name="is_active" :checked="user.is_active == 1 ? true : false"
+                                            @change="changeStatus(user.id)" />
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <Pagination :data="users"/>
+                    <Pagination :data="users" :getData="getData" />
                 </div>
             </div>
         </div>
@@ -65,9 +74,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Pagination from '@/Components/Pagination.vue';
 import HeaderTable from '@/Components/HeaderTable.vue';
-import Checkbox from '@/Components/Checkbox.vue';
-import { Head, usePage, router  } from '@inertiajs/vue3';
 import { IconArrowsSort } from '@tabler/icons-vue';
+import Checkbox from '@/Components/Checkbox.vue';
+import { Head, usePage, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import Swal from 'sweetalert2'
 
@@ -82,58 +91,44 @@ const users = usePage().props.users;
 function orderList(name) {
     const url = new URL(window.location.href)
     const direction = ref(url.searchParams.get('direction') == 'asc' ? 'desc' : 'asc');
-    const per_page = url.searchParams.get('per_page');
-    getData(name, direction.value, per_page,'');
+    getData(name, '', '', '',direction.value);
 }
 
-function getData(sort='', direction='', per_page='',page='') {
-    if (sort && direction && per_page && page) {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
-            data: {
-                sort: sort,
-                direction: direction,
-                per_page: per_page,
-                page: page,
-            },
-        });
-    } else if (sort && direction && per_page) {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
-            data: {
-                sort: sort,
-                direction: direction,
-                per_page: per_page,
-            },
-        });
-    } else if (sort && direction) {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
-            data: {
-                sort: sort,
-                direction: direction,
-            },
-        });
-    } else if (per_page) {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
-            data: {
-                per_page: per_page,
-            },
+function getData(sort = '', per_page = '', page = '', search = '', direction = '') {
+
+    const url = new URL(window.location.href)
+    direction = direction != '' ? direction : url.searchParams.get('direction');
+    sort = sort != '' ? sort : url.searchParams.get('sort');
+    per_page = per_page != '' ? per_page : url.searchParams.get('per_page');
+    page = page != '' ? page : users.last_page > url.searchParams.get('page') ? url.searchParams.get('page') : 1;
+    search = search != '' ? search : url.searchParams.get('search');
+
+    let data = {};
+    if (search && per_page && sort && direction && page) data = { search: search, per_page: per_page, sort: sort, direction: direction, page: page, }
+    else if (search && per_page && sort && direction) data = { search: search, per_page: per_page, sort: sort, direction: direction, }
+    else if (sort && direction && per_page && page) data = { sort: sort, direction: direction, per_page: per_page, page: page, }
+    else if (search && per_page && page) data = { search: search, per_page: per_page, page: page, }
+    else if (search && per_page) data = { search: search, per_page: per_page, }
+    else if (sort && direction && per_page) data = { sort: sort, direction: direction, per_page: per_page, }
+    else if (sort && direction && search) data = { sort: sort, direction: direction, per_page: per_page, }
+    else if (sort && direction) data = { sort: sort, direction: direction, }
+    else if (per_page) data = { per_page: per_page, }
+    else if (search) data = { search: search, }
+    else if (page) data = { page: page, }
+
+
+    if (data) {
+        router.visit('users', {
+            replace: true,
+            preserveScroll: true,
+            only: ['users'],
+            data: data,
         });
     } else {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
+        router.visit('users', {
+            replace: true,
+            preserveScroll: true,
+            only: ['users'],
         });
     }
 }
@@ -148,12 +143,7 @@ function changeStatus(id) {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Si, cambiar!'
-    }).then(async(result) => {
-        const url = new URL(window.location.href)
-        const direction = ref(url.searchParams.get('direction'));
-        const per_page = url.searchParams.get('per_page');
-        const page = url.searchParams.get('page');
-        const sort = url.searchParams.get('sort');
+    }).then(async (result) => {
         if (result.isConfirmed) {
             router.patch(route('users.update', id), {
                 preserveScroll: true,
@@ -164,7 +154,7 @@ function changeStatus(id) {
                         'El usuario ha sido desactivado.',
                         'success'
                     )
-                    getData(sort, direction.value, per_page,page);
+                    getData();
                 },
                 onError: () => {
                     Swal.fire(
@@ -175,7 +165,7 @@ function changeStatus(id) {
                 }
             });
         } else {
-            getData(sort, direction.value, per_page,page);
+            getData();
         }
     })
 }

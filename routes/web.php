@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TypePeopleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -47,5 +48,18 @@ Route::group([
     Route::get('/', 'index')->name('users');
     Route::patch('/{user}', 'update')->name('users.update');
 });
+
+Route::group([
+    'middleware' => ['auth', 'verified'],
+    'prefix' => 'typePeople',
+    'controller' => TypePeopleController::class,
+], function () {
+    Route::get('/', 'index')->name('typePeople');
+    Route::post('/', 'store')->name('typePeople.store');
+    Route::patch('/{typePeople}', 'update')->name('typePeople.update');
+    Route::delete('/{typePeople}', 'destroy')->name('typePeople.destroy');
+});
+
+
 
 require __DIR__.'/auth.php';

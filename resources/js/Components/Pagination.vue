@@ -27,104 +27,28 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import { usePage, router } from '@inertiajs/vue3';
 
-
-
-
-
-defineProps({
+const props = defineProps({
     data: {
         type: Object,
     },
+    getData:{
+        type: Function,
+    }
 });
 
-const data = usePage().props.users;
+const data = props.data;
 const countList = ref(data.per_page);
 const page = ref(data.current_page);
 
 watch(countList, (value) => {
-    let url = new URL(window.location.href);
-    let is_sort = url.searchParams.get('sort');
-    let is_direction = url.searchParams.get('direction');
-    if (is_sort && is_direction) {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
-            data: {
-                per_page: value,
-                sort: is_sort,
-                direction: is_direction
-            }
-        });
-    } else {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
-            data: {
-                per_page: value 
-            }
-        });
-    }
-});
-
-watch(page, (value) => {
-    let url = new URL(window.location.href);
-    let is_perpage = url.searchParams.get('per_page');
-    let is_sort = url.searchParams.get('sort');
-    let is_direction = url.searchParams.get('direction');
-    if (is_sort && is_direction && is_perpage) {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
-            data: {
-                per_page: countList.value,
-                page: value,
-                sort: is_sort,
-                direction: is_direction
-            }
-        });
-    } else
-    if (is_sort && is_direction) {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
-            data: {
-                page: value,
-                sort: is_sort,
-                direction: is_direction
-            }
-        });
-    } else
-    if(is_perpage) {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
-            data: {
-                per_page: countList.value,
-                page: value 
-            }
-        });
-    } else {
-        router.visit('users', { 
-            replace: true, 
-            preserveScroll: true, 
-            only: ['users'], 
-            data: {
-                page: value 
-            }
-        });
-    }
+    props.getData('',value);
 });
 
 function getPage(url) {
     url = new URL(url);
     page.value = url.searchParams.get('page');
+    props.getData('','',page.value);
 }
 
 
