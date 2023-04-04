@@ -44,14 +44,14 @@ const form = useForm({
 
             <div>
                 <InputLabel for="phone" value="Teléfono" />
-                <TextInput id="phone" type="text" class="mt-1 block w-full" v-model="form.phone" required autofocus
+                <TextInput id="phone" type="text" class="mt-1 block w-full" v-model="form.phone" required 
                     autocomplete="phone" />
                 <InputError class="mt-2" :message="form.errors.phone" />
             </div>
 
             <div>
                 <InputLabel for="address" value="Dirección" />
-                <TextInput id="address" type="text" class="mt-1 block w-full" v-model="form.address" required autofocus
+                <TextInput id="address" type="text" class="mt-1 block w-full" v-model="form.address" required 
                     autocomplete="address" />
                 <InputError class="mt-2" :message="form.errors.address" />
             </div>
