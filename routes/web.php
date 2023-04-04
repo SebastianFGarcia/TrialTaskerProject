@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\TypePeopleController;
 use App\Http\Controllers\TypeStageController;
 use App\Http\Controllers\UserController;
@@ -70,6 +71,17 @@ Route::group([
     Route::post('/', 'store')->name('typeStage.store');
     Route::patch('/{typeStage}', 'update')->name('typeStage.update');
     Route::delete('/{typeStage}', 'destroy')->name('typeStage.destroy');
+});
+
+Route::group([
+    'middleware' => ['auth', 'verified'],
+    'prefix' => 'people',
+    'controller' => PeopleController::class,
+], function () {
+    Route::get('/', 'index')->name('people');
+    Route::post('/', 'store')->name('people.store');
+    Route::put('/{people}', 'update')->name('people.update');
+    Route::delete('/{people}', 'destroy')->name('people.destroy');
 });
 
 

@@ -3,8 +3,8 @@
         <table class="w-full text-sm text-left text-gray-500 ">
             <thead class="text-xs text-gray-700 uppercase bg-gray-5">
                 <tr class="border">
-                    <th scope="col" class="px-4 py-2 ">
-                        <div class="flex items-center justify-between" v-for="column in columns" :key="column.key">
+                    <th scope="col" class="px-4 py-2" v-for="column in columns" :key="column.key">
+                        <div class="flex items-center justify-between" >
                             {{ column.name }}
                             <a @click="getData(column.key)">
                                 <IconArrowsSort :size="17" />
@@ -17,11 +17,12 @@
             <tbody>
                 <tr class="bg-white border-b " v-for="item in data" :key="item.id">
                     <td class=" px-4 py-2" v-for="column in columns" :key="column.key">
-                        {{ item[column.key] }}
+                        <span v-if="!column.key_2"> {{ item[column.key] }} </span>
+                        <span v-if="column.key_2"> {{ item[column.key_2.key][column.key_2.name]}} </span>
                     </td>
-                    <td class=" px-4 py-2 flex justify-center content-center gap-5">
-                        <a v-if="edit " @click="edit(0,item)">Editar</a>
-                        <a v-if="destroy " @click="destroy(item.id)">Eliminar</a>
+                    <td class=" px-4 py-2">
+                        <a v-if="edit " @click="edit(0,item)" class="me-1">Editar</a>
+                        <a v-if="destroy " @click="destroy(item.id)" class="ms-1">Eliminar</a>
                     </td>
                 </tr>
             </tbody>

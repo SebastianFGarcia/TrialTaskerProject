@@ -5,9 +5,12 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link , usePage} from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+
+const user = usePage().props.auth.user;
+
 </script>
 
 <template>
@@ -30,14 +33,17 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('users')" :active="route().current('users')">
+                                <NavLink :href="route('users')" :active="route().current('users')" v-if="user.is_admin">
                                     Usuarios
                                 </NavLink>
-                                <NavLink :href="route('typePeople')" :active="route().current('typePeople')">
+                                <NavLink :href="route('typePeople')" :active="route().current('typePeople')" v-if="user.is_admin">
                                     Tipo de Personas
                                 </NavLink>
-                                <NavLink :href="route('typeStage')" :active="route().current('typeStage')">
+                                <NavLink :href="route('typeStage')" :active="route().current('typeStage')" v-if="user.is_admin">
                                     Tipo de Etapas
+                                </NavLink>
+                                <NavLink :href="route('people')" :active="route().current('people')">
+                                    Personas
                                 </NavLink>
                             </div>
                         </div>
@@ -99,14 +105,17 @@ const showingNavigationDropdown = ref(false);
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('users')" :active="route().current('users')">
+                        <ResponsiveNavLink :href="route('users')" :active="route().current('users')" v-if="user.is_admin">
                             Usuarios
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('typePeople')" :active="route().current('typePeople')">
+                        <ResponsiveNavLink :href="route('typePeople')" :active="route().current('typePeople')" v-if="user.is_admin">
                             Tipo de Personas
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('typeStage')" :active="route().current('typeStage')">
+                        <ResponsiveNavLink :href="route('typeStage')" :active="route().current('typeStage')" v-if="user.is_admin">
                             Tipo de Etapas
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('people')" :active="route().current('people')" v-if="user.is_admin">
+                            Personas
                         </ResponsiveNavLink>
                     </div>
                     <!-- Responsive Settings Options -->

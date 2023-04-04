@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\People;
 use App\Models\PlataformUsageRegister;
 use App\Models\User;
 use App\Models\TypePeople;
@@ -22,9 +23,11 @@ class DatabaseSeeder extends Seeder
         User::factory(20)->create();
         TypePeople::factory(20)->create();
         TypeStage::factory(20)->create();
+        People::factory(20)->create();
 
         User::factory()->create([
             'email' => 'test@example.com',
+            'is_admin' => true,
         ]);
 
         // crea registros de una semana hasta hoy para la tabla PlataformUsageRegister

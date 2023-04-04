@@ -22,9 +22,9 @@
                 {{ title }}
             </h2>
             <form @submit.prevent="save">
-                <div class="mt-6">
-                    <InputLabel for="name" value="Nombre:" class="sr-only" />
-                    <TextInput id="name" ref="nameInput" v-model="form.name" type="text" class="mt-1 block w-3/4" placeholder="Nombre" />
+                <div class="mt-6 ">
+                    <InputLabel for="name" value="Nombre:" />
+                    <TextInput id="name" ref="nameInput" v-model="form.name" type="text" class="mt-1 block w-full sm:w-3/4" placeholder="Nombre" />
                     <InputError :message="form.errors.name" class="mt-2" />
                 </div>
                 <div class="mt-6 flex justify-end gap-3">
