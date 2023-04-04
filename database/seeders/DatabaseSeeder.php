@@ -7,9 +7,10 @@ namespace Database\Seeders;
 use App\Models\PlataformUsageRegister;
 use App\Models\User;
 use App\Models\TypePeople;
+use App\Models\TypeStage;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-
+use Tests\TestCase;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(20)->create();
         TypePeople::factory(20)->create();
+        TypeStage::factory(20)->create();
 
         User::factory()->create([
             'email' => 'test@example.com',
