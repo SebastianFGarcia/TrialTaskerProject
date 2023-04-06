@@ -6,6 +6,10 @@
                 <IconPlus stroke-width="3" class="w-4 h-4 mr-2" />
                 Crear
             </button>
+            <a class="flex items-center px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-lg active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-green" v-if="route_to" :href="route(route_to)">
+                <IconPlus stroke-width="3" class="w-4 h-4 mr-2" />
+                Crear
+            </a>
         </div>
         <!-- search -->
         <div class="relative text-gray-600 focus-within:text-gray-400">
@@ -29,6 +33,7 @@ import { onMounted, ref } from 'vue';
 const props = defineProps({
     route_to: {
         type: String,
+        default: null,
     },
     getData:{
         type: Function,

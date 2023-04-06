@@ -28,4 +28,9 @@ class People extends Model
     {
         return $this->belongsTo(TypePeople::class);
     }
+
+    public function processes()
+    {
+        return $this->hasMany(Process::class);
+    }
 }

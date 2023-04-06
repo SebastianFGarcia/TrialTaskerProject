@@ -6,12 +6,12 @@ namespace Database\Seeders;
 
 use App\Models\People;
 use App\Models\PlataformUsageRegister;
+use App\Models\Process;
 use App\Models\User;
 use App\Models\TypePeople;
 use App\Models\TypeStage;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Tests\TestCase;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,15 +20,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(20)->create();
-        TypePeople::factory(20)->create();
-        TypeStage::factory(20)->create();
-        People::factory(20)->create();
-
         User::factory()->create([
             'email' => 'test@example.com',
             'is_admin' => true,
         ]);
+        User::factory(20)->create();
+        TypePeople::factory(20)->create();
+        TypeStage::factory(20)->create();
+        People::factory(20)->create();
+        Process::factory(20)->create();
+
 
         // crea registros de una semana hasta hoy para la tabla PlataformUsageRegister
         $start = Carbon::now()->subDays(7)->format('Y-m-d');

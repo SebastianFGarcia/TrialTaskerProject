@@ -45,6 +45,9 @@ const user = usePage().props.auth.user;
                                 <NavLink :href="route('people')" :active="route().current('people')">
                                     Personas
                                 </NavLink>
+                                <NavLink :href="route('processes')" :active="route().current('processes')">
+                                    Procesos
+                                </NavLink>
                             </div>
                         </div>
 
@@ -116,6 +119,9 @@ const user = usePage().props.auth.user;
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('people')" :active="route().current('people')" v-if="user.is_admin">
                             Personas
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('processes')" :active="route().current('processes')" v-if="user.is_admin">
+                            Procesos
                         </ResponsiveNavLink>
                     </div>
                     <!-- Responsive Settings Options -->

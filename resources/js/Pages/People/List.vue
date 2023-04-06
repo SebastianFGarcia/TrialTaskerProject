@@ -8,7 +8,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <HeaderTable route_to="people" :getData="getData" />
+                    <HeaderTable :getData="getData" />
                     <Table :data="people.data" :columns="columns" name="people" :edit="openModal" :destroy="destroy"
                         :getData="getData" />
                     <Pagination :data="people" :getData="getData" />
@@ -224,7 +224,6 @@ const closeModal = () => {
 }
 
 const save = () => {
-    console.log(operacion.value);
     if (operacion.value == 1) {
         form.post(route('people.store'), {
             preserveScroll: true,
@@ -300,17 +299,18 @@ function getData(sort = '', per_page = '', page = '', search = '', direction = '
     search = search != '' ? search : url.searchParams.get('search');
 
     let data = {};
-    if (search && per_page && sort && direction && page) data = { search: search, per_page: per_page, sort: sort, direction: direction, page: page, }
-    else if (search && per_page && sort && direction) data = { search: search, per_page: per_page, sort: sort, direction: direction, }
-    else if (sort && direction && per_page && page) data = { sort: sort, direction: direction, per_page: per_page, page: page, }
-    else if (search && per_page && page) data = { search: search, per_page: per_page, page: page, }
-    else if (search && per_page) data = { search: search, per_page: per_page, }
-    else if (sort && direction && per_page) data = { sort: sort, direction: direction, per_page: per_page, }
-    else if (sort && direction && search) data = { sort: sort, direction: direction, per_page: per_page, }
-    else if (sort && direction) data = { sort: sort, direction: direction, }
-    else if (per_page) data = { per_page: per_page, }
-    else if (search) data = { search: search, }
-    else if (page) data = { page: page, }
+    if (search && per_page && sort && direction && page) data = {search: search,per_page: per_page,sort: sort,direction: direction,page: page,}
+    else if (search && per_page && sort && direction)data = {search: search,per_page: per_page,sort: sort,direction: direction,}
+    else if (sort && direction && per_page && page) data = {sort: sort,direction: direction,per_page: per_page,page: page,}
+    else if (search && per_page && page) data = {search: search,per_page: per_page,page: page,} 
+    else if (search && per_page) data = {search: search,per_page: per_page,}
+    else if (sort && direction && page) data = {sort: sort,direction: direction,page: page,}
+    else if (sort && direction && per_page) data = {sort: sort,direction: direction,per_page: per_page,}
+    else if (sort && direction && search) data = {sort: sort,direction: direction,per_page: per_page,}
+    else if (sort && direction) data = {sort: sort,direction: direction,}
+    else if (per_page) data = {per_page: per_page,}
+    else if (search) data = {search: search,}
+    else if (page) data = {page: page,}
 
 
     if (data) {

@@ -9,7 +9,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <HeaderTable route_to="users" :getData="getData"/>
+                    <HeaderTable :getData="getData"/>
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left text-gray-500 ">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-5">
@@ -104,18 +104,18 @@ function getData(sort = '', per_page = '', page = '', search = '', direction = '
     console.log(direction, sort, per_page, page, search);
 
     let data = {};
-    if (search && per_page && sort && direction && page) data = { search: search, per_page: per_page, sort: sort, direction: direction, page: page, }
-    else if (search && per_page && sort && direction) data = { search: search, per_page: per_page, sort: sort, direction: direction, }
-    else if (sort && direction && per_page && page) data = { sort: sort, direction: direction, per_page: per_page, page: page, }
-    else if (search && per_page && page) data = { search: search, per_page: per_page, page: page, }
-    else if (search && per_page) data = { search: search, per_page: per_page, }
-    else if (per_page && page) data = {per_page:per_page, page:page}
-    else if (sort && direction && per_page) data = { sort: sort, direction: direction, per_page: per_page, }
-    else if (sort && direction && search) data = { sort: sort, direction: direction, per_page: per_page, }
-    else if (sort && direction) data = { sort: sort, direction: direction, }
-    else if (per_page) data = { per_page: per_page, }
-    else if (search) data = { search: search, }
-    else if (page) data = { page: page, }
+    if (search && per_page && sort && direction && page) data = {search: search,per_page: per_page,sort: sort,direction: direction,page: page,}
+    else if (search && per_page && sort && direction)data = {search: search,per_page: per_page,sort: sort,direction: direction,}
+    else if (sort && direction && per_page && page) data = {sort: sort,direction: direction,per_page: per_page,page: page,}
+    else if (search && per_page && page) data = {search: search,per_page: per_page,page: page,} 
+    else if (search && per_page) data = {search: search,per_page: per_page,}
+    else if (sort && direction && page) data = {sort: sort,direction: direction,page: page,}
+    else if (sort && direction && per_page) data = {sort: sort,direction: direction,per_page: per_page,}
+    else if (sort && direction && search) data = {sort: sort,direction: direction,per_page: per_page,}
+    else if (sort && direction) data = {sort: sort,direction: direction,}
+    else if (per_page) data = {per_page: per_page,}
+    else if (search) data = {search: search,}
+    else if (page) data = {page: page,}
 
 
     if (data) {

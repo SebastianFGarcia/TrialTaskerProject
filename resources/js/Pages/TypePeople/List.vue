@@ -8,7 +8,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <HeaderTable route_to="typePeople" :getData="getData" :create="openModal"/>
+                    <HeaderTable :getData="getData" :create="openModal"/>
                     <Table :data="typePeople.data" :columns="columns" name="typePeople" :edit="openModal" :destroy="destroy" :getData="getData"/>
                     <Pagination :data="typePeople"  :getData="getData"/>
                 </div>
@@ -176,6 +176,7 @@ function getData(sort='', per_page='', page='', search='', direction='') {
     else if (sort && direction && per_page && page) data = {sort: sort,direction: direction,per_page: per_page,page: page,}
     else if (search && per_page && page) data = {search: search,per_page: per_page,page: page,} 
     else if (search && per_page) data = {search: search,per_page: per_page,}
+    else if (sort && direction && page) data = {sort: sort,direction: direction,page: page,}
     else if (sort && direction && per_page) data = {sort: sort,direction: direction,per_page: per_page,}
     else if (sort && direction && search) data = {sort: sort,direction: direction,per_page: per_page,}
     else if (sort && direction) data = {sort: sort,direction: direction,}

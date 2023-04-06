@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PeopleController;
+use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\TypePeopleController;
 use App\Http\Controllers\TypeStageController;
 use App\Http\Controllers\UserController;
@@ -82,6 +83,20 @@ Route::group([
     Route::post('/', 'store')->name('people.store');
     Route::put('/{people}', 'update')->name('people.update');
     Route::delete('/{people}', 'destroy')->name('people.destroy');
+});
+
+Route::group([
+    'middleware' => ['auth', 'verified'],
+    'prefix' => 'processes',
+    'controller' => ProcessController::class,
+], function () {
+    Route::get('/', 'index')->name('processes');
+    Route::get('/create', 'create')->name('processes.create');
+    Route::post('/', 'store')->name('processes.store');
+    Route::get('/{process}', 'show')->name('processes.show');
+    Route::get('/{process}/edit', 'edit')->name('processes.edit');
+    Route::put('/{process}', 'update')->name('processes.update');
+    Route::delete('/{process}', 'destroy')->name('processes.destroy');
 });
 
 

@@ -21,6 +21,13 @@ class PeopleController extends Controller
         if ($request->has('sort')) $sort = $request->input('sort'); else $sort = 'id';
         if ($request->has('search')){
             $people = People::where('name', 'like', '%'.$request->input('search').'%')
+                ->orWhere('email', 'like', '%'.$request->input('search').'%')
+                ->orWhere('nit', 'like', '%'.$request->input('search').'%')
+                ->orWhere('num_ministry', 'like', '%'.$request->input('search').'%')
+                ->orWhere('num_dispach', 'like', '%'.$request->input('search').'%')
+                ->orWhere('radicated', 'like', '%'.$request->input('search').'%')
+                ->orWhere('authority', 'like', '%'.$request->input('search').'%')
+                ->orWhere('number', 'like', '%'.$request->input('search').'%')
                 ->orderBy($sort, $order)
                 ->paginate($cant);
 
@@ -69,15 +76,15 @@ class PeopleController extends Controller
         $request->validate([
             'name' => 'required|max:100|min:3|string',
             'email' => 'required|max:100|min:3|email',
-            'phone' => 'required|max:100|min:3|string',
-            'address' => 'required|max:100|min:3|string',
+            'phone' => 'nullable|max:100|min:3|string',
+            'address' => 'nullable|max:100|min:3|string',
             'nit' => 'required|max:100|min:3|string',
-            'issue_nit' => 'required|max:100|min:3|string',
-            'num_ministry' => 'required|max:100|min:3|string',
-            'num_dispach' => 'required|max:100|min:3|string',
-            'radicated' => 'required|max:100|min:3|string',
-            'authority' => 'required|max:100|min:3|string',
-            'number' => 'required|max:100|min:3|string',
+            'issue_nit' => 'nullable|max:100|min:3|string',
+            'num_ministry' => 'nullable|max:100|min:3|string',
+            'num_dispach' => 'nullable|max:100|min:3|string',
+            'radicated' => 'nullable|max:100|min:3|string',
+            'authority' => 'nullable|max:100|min:3|string',
+            'number' => 'nullable|max:100|min:3|string',
             'type_people_id' => 'required|integer',
         ]);
         $people->update($request->all());
