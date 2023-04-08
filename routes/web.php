@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ProcessController;
+use App\Http\Controllers\StageController;
 use App\Http\Controllers\TypePeopleController;
 use App\Http\Controllers\TypeStageController;
 use App\Http\Controllers\UserController;
@@ -97,6 +98,22 @@ Route::group([
     Route::get('/{process}/edit', 'edit')->name('processes.edit');
     Route::put('/{process}', 'update')->name('processes.update');
     Route::delete('/{process}', 'destroy')->name('processes.destroy');
+    Route::put('/{process}/changeStatus', 'changeStatus')->name('processes.changeStatus');
+});
+
+Route::group([
+    'middleware' => ['auth', 'verified'],
+    'prefix' => 'stages',
+    'controller' => StageController::class,
+], function () {
+
+    Route::get('/{process}/create', 'create')->name('stages.create');
+    Route::get('/edit/{stage}', 'edit')->name('stage.edit');
+    Route::put('/{stage}', 'update')->name('stage.update');
+    Route::delete('/{stage}', 'destroy')->name('stage.destroy');
+    Route::put('/{stage}/changeStatus', 'changeStatus')->name('stage.changeStatus');
+    Route::get('/{stage}', 'show')->name('stages.show');
+    Route::post('/', 'store')->name('stages.store');
 });
 
 

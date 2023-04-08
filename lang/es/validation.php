@@ -195,6 +195,12 @@ return [
         'radicated' => 'radicado',
         'number' => 'número',
         'radicate' => 'radicado',
+        'date' => 'fecha',
+        'description' => 'descripción',
+        'type' => 'tipo',
+        'type_id' => 'tipo',
+        'type_stage_id' => 'tipo de etapa',
+        'procedure_date' => 'fecha',
     ],
 
 ];

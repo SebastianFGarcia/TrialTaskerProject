@@ -14,6 +14,7 @@ class Process extends Model
         'radicate',
         'description',
         'status',
+        'is_active',
         'user_id',
         'people_id',
     ];
@@ -27,4 +28,10 @@ class Process extends Model
     {
         return $this->belongsTo(People::class);
     }
+
+    public function stages()
+    {
+        return $this->hasMany(Stage::class);
+    }
+    
 }

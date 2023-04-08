@@ -139,7 +139,6 @@ const props = defineProps({
 
 const people = usePage().props.people;
 const types = usePage().props.types;
-console.log(people);
 
 
 const columns = [

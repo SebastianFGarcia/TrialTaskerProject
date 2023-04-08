@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Process;
 use App\Models\People;
+use App\Models\Stage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -40,15 +41,33 @@ class ProcessController extends Controller
         ]);
     } 
 
-    public function show(Process $process)
+    public function show(Request $request, Process $process)
     {
         $process->load('people');
+        if ($request->has('per_page')) $cant = $request->input('per_page'); else $cant = 10;
+        if ($request->has('search')){
+            /* la cosulta trae la busqueda de el nombre, radicado y personas con el nombre y tosas las consultas deben estar con el usuario autenticado */
+            $stages = Stage::where('process_id', $process->id)
+                ->where('name', 'like', '%' . $request->input('search') . '%')
+                ->orderBy('id', 'desc')
+                ->paginate($cant);
+            $stages->load('process', 'typeStage');
+            return Inertia::render('Process/Show', [
+                'process' => $process,
+                'stages' => $stages,
+            ]);
+        }
+        $stages = Stage::where('process_id',  $process->id)
+            ->orderBy('id', 'desc')
+            ->paginate($cant);
+        $stages->load('process', 'typeStage');
         return Inertia::render('Process/Show', [
             'process' => $process,
+            'stages' => $stages,
         ]);
     }
 
-    public function create()
+    public function create(): Response
     {
         $people = People::all();
         return Inertia::render('Process/Create', [
@@ -73,7 +92,7 @@ class ProcessController extends Controller
                 'radicate' => 'required|string|max:255|min:3',
                 'description' => 'required|string|min:3',
                 'people_name' => 'required|string|max:255|min:3',
-                'people_nit' => 'required|string|max:255|min:5|unique:people,nit',
+                'people_nit' => 'required|string|max:255|min:5|unique:people,nit'.($request->input('people_id') ? ','.$request->input('people_id') : ''),
                 'people_email' => 'required|email|max:255|min:5',
                 'people_phone' => 'required|string|max:255|min:6',
                 'people_address' => 'required|string|max:255|min:5',
@@ -236,6 +255,14 @@ class ProcessController extends Controller
         $process->delete();
         return redirect()->route('processes');
     }
+    
+    public function changeStatus(Process $process)
+    {
+        $process->status = !$process->status;
+        $process->save();
+        return redirect()->route('processes.show', $process->id);
+    }
+    
 }
 
 

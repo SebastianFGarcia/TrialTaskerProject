@@ -12,4 +12,9 @@ class TypeStage extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function stages()
+    {
+        return $this->hasMany(Stage::class);
+    }
 }

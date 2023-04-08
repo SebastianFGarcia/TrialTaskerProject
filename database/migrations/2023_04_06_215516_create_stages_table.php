@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('processes', function (Blueprint $table) {
+        Schema::create('stages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('radicate');
             $table->text('description');
+            $table->date('procedure_date');
             $table->boolean('status')->default(true);
             $table->boolean('is_active')->default(true);
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('people_id')->constrained('people')->onDelete('cascade');
+            $table->foreignId('process_id')->constrained('processes')->onDelete('cascade');
+            $table->foreignId('type_stage_id')->constrained('type_stages')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('processes');
+        Schema::dropIfExists('stages');
     }
 };

@@ -11,20 +11,19 @@
                     <div class="grid gap-3 w-full">
                         <a class="grid gap-1 shadow border p-4 sm:grid-cols-2 lg:grid-cols-4 rounded-lg cursor-pointer" v-for="process in processes.data" :key="process.id" :class="{ 'bg-slate-50 hover:bg-slate-100': process.status, 'bg-orange-50 hover:bg-orange-100': !process.status }" :href="route('processes.show', process.id)">
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900">Nombre: <span class="text-sm text-gray-500 font-normal">{{ process.name }}</span></h3>
+                                <h3 class="text-lg sm:text-sm font-semibold text-gray-900">Nombre: <span class="text-sm text-gray-500 font-normal">{{ process.name }}</span></h3>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900">Cliente: <span class="text-sm text-gray-500 font-normal">{{ process.people.name }}</span></h3>
+                                <h3 class="text-lg sm:text-sm font-semibold text-gray-900">Cliente: <span class="text-sm text-gray-500 font-normal">{{ process.people.name }}</span></h3>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900">Radicado: <span class="text-sm text-gray-500 font-normal">{{ process.radicate }}</span></h3>
+                                <h3 class="text-lg sm:text-sm font-semibold text-gray-900">Radicado: <span class="text-sm text-gray-500 font-normal">{{ process.radicate }}</span></h3>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900">Estado: <span class="text-sm text-gray-500 font-normal"><span v-if="process.status">En proceso</span><span v-else>Finalizado</span></span></h3>
+                                <h3 class="text-lg sm:text-sm font-semibold text-gray-900">Estado: <span class="text-sm text-gray-500 font-normal"><span v-if="process.status">En proceso</span><span v-else>Finalizado</span></span></h3>
                             </div>
                             <div class="sm:col-span-2 lg:col-span-4">
-                                <h3 class="text-lg font-semibold text-gray-900">Descripción: <span class="text-sm text-gray-500 font-normal">Sit quibusdam et vel ullam vero. Et et qui minus dicta.
-                                    Aspernatur rerum perspiciatis neque inventore. Itaque dolore sit odio saepe debitis.
+                                <h3 class="text-lg sm:text-sm font-semibold text-gray-900">Descripción: <span class="text-sm text-gray-500 font-normal">{{ process.description }}
                                 </span></h3>
                                 
                             </div>
