@@ -16,12 +16,14 @@ defineProps({
     <Head title="Bienvenido" />
     <div class="min-h-screen bg-dots-darker bg-center bg-gray-100">
         <div v-if="canLogin" class="flex justify-end items-center gap-3 p-4 lg:px-8">
-            <Link v-if="$page.props.auth.user.is_admin" :href="route('dashboard')"
-                class="font-semibold text-gray-600 hover:text-gray-900  focus:outline focus:outline-2 focus:rounded-sm">
-            Dashboard</Link>
-            <Link v-if="!$page.props.auth.user.is_admin" :href="route('home')"
-                class="font-semibold text-gray-600 hover:text-gray-900  focus:outline focus:outline-2 focus:rounded-sm">
-            Inicio</Link>
+            <div v-if="$page.props.auth.user">
+                <Link v-if="$page.props.auth.user.is_admin" :href="route('dashboard')"
+                    class="font-semibold text-gray-600 hover:text-gray-900  focus:outline focus:outline-2 focus:rounded-sm">
+                Dashboard</Link>
+                <Link v-if="!$page.props.auth.user.is_admin" :href="route('home')"
+                    class="font-semibold text-gray-600 hover:text-gray-900  focus:outline focus:outline-2 focus:rounded-sm">
+                Inicio</Link>
+            </div>
 
             <template v-else>
                 <Link :href="route('login')"

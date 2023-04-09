@@ -24,10 +24,10 @@ const user = usePage().props.auth.user;
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')" v-if="user.is_admin">
-                                    <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo class="block h-9 w-auto text-gray-800" />
                                 </Link>
                                 <Link :href="route('home')" v-if="!user.is_admin">
-                                    <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo class="block h-9 w-auto text-gray-800" />
                                 </Link>
                             </div>
 
