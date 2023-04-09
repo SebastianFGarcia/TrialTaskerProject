@@ -28,7 +28,7 @@ class PeopleFactory extends Factory
             'radicated' => $this->faker->randomNumber(8),
             'authority' => $this->faker->randomNumber(8),
             'number' => $this->faker->randomNumber(8),
-            'type_people_id' => $this->faker->numberBetween(1, 20),
+            'type_people_id' => $this->faker->numberBetween(1, 6),
         ];
     }
 }

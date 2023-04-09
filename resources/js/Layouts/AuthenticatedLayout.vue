@@ -111,7 +111,10 @@ const user = usePage().props.auth.user;
                 <!-- Responsive Navigation Menu -->
                 <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <ResponsiveNavLink :href="route('home')" :active="route().current('home')" v-if="!user.is_admin">
+                            Inicio
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')" v-if="user.is_admin">
                             Dashboard
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('users')" :active="route().current('users')" v-if="user.is_admin">
@@ -126,7 +129,7 @@ const user = usePage().props.auth.user;
                         <ResponsiveNavLink :href="route('people')" :active="route().current('people')" v-if="user.is_admin">
                             Personas
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('processes')" :active="route().current('processes')">
+                        <ResponsiveNavLink :href="route('processes')" :active="route().current('processes')" v-if="!user.is_admin">
                             Procesos
                         </ResponsiveNavLink>
                     </div>
