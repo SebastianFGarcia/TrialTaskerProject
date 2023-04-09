@@ -28,4 +28,9 @@ class Stage extends Model
     {
         return $this->belongsTo(TypeStage::class);
     }
+
+    public function people()
+    {
+        return $this->belongsToMany(People::class, 'people_stages');
+    }
 }

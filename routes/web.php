@@ -106,7 +106,7 @@ Route::group([
     'prefix' => 'stages',
     'controller' => StageController::class,
 ], function () {
-
+    Route::post('/validatePeople', 'validatePeople')->name('stages.validatePeople');
     Route::get('/{process}/create', 'create')->name('stages.create');
     Route::get('/edit/{stage}', 'edit')->name('stage.edit');
     Route::put('/{stage}', 'update')->name('stage.update');

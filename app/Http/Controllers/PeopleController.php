@@ -56,10 +56,10 @@ class PeopleController extends Controller
     {
         $request->validate([
             'name' => 'required|max:100|min:3|string',
-            'email' => 'required|max:100|min:3|email',
+            'email' => 'required|max:100|min:3|unique:people|email',
             'phone' => 'nullable|max:100|min:3|string',
             'address' => 'nullable|max:100|min:3|string',
-            'nit' => 'required|max:100|min:3|string',
+            'nit' => 'required|max:100|min:3|unique:people|string',
             'issue_nit' => 'nullable|max:100|min:3|string',
             'num_ministry' => 'nullable|max:100|min:3|string',
             'num_dispach' => 'nullable|max:100|min:3|string',
@@ -75,10 +75,10 @@ class PeopleController extends Controller
     {
         $request->validate([
             'name' => 'required|max:100|min:3|string',
-            'email' => 'required|max:100|min:3|email',
+            'email' => 'required|max:100|min:3|email|unique:people,email,'.$people->id,
             'phone' => 'nullable|max:100|min:3|string',
             'address' => 'nullable|max:100|min:3|string',
-            'nit' => 'required|max:100|min:3|string',
+            'nit' => 'required|max:100|min:3|string|unique:people,nit,'.$people->id,
             'issue_nit' => 'nullable|max:100|min:3|string',
             'num_ministry' => 'nullable|max:100|min:3|string',
             'num_dispach' => 'nullable|max:100|min:3|string',

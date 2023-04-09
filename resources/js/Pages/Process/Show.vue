@@ -150,25 +150,37 @@ const destroy = (id) => {
 }
 
 const changeStatus = (id) => {
-    router.visit(route('processes.changeStatus', id),{
-        method: 'PUT',
-        onSuccess: () => {
-            Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Todos las etapas que estén en proceso se cambiarán a finalizado",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Cambiar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            router.visit(route('processes.changeStatus', id),{
+                method: 'PUT',
+                onSuccess: () => {
+                    Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    }).fire({
+                        icon: 'success',
+                        title: 'Proceso actualizado'
+                    })
                 }
-            }).fire({
-                icon: 'success',
-                title: 'Proceso finalizado'
-            })
+            });
         }
-    });
+    })
 }
 
 

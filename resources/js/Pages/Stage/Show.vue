@@ -18,7 +18,7 @@
                             <IconTrash :size="20" stroke-width="2"/>
                         </button>
                     </div>
-                    <div class="shadow border p-4 sm:grid-cols-2 rounded-lg"
+                    <div class="shadow border my-2 p-4 sm:grid-cols-2 rounded-lg"
                         :class="{ 'bg-slate-50': stage.status, 'bg-orange-50': !stage.status }">
 
                         <h2 class="text-md sm:text-sm  font-semibold text-gray-900">Etapa</h2>
@@ -26,6 +26,10 @@
                             <div class="col-span-1">
                                 <h3 class="text-md sm:text-sm font-semibold text-gray-900">Nombre: <span
                                         class="text-sm text-gray-500 font-normal">{{ stage.name }}</span></h3>
+                            </div>
+                            <div class="col-span-1">
+                                <h3 class="text-md sm:text-sm font-semibold text-gray-900">Tipo: <span
+                                        class="text-sm text-gray-500 font-normal">{{ stage.type_stage.name }}</span></h3>
                             </div>
                             <div class="col-span-1">
                                 <h3 class="text-md sm:text-sm font-semibold text-gray-900">Estado: <span
@@ -36,9 +40,25 @@
                                 <h3 class="text-md sm:text-sm font-semibold text-gray-900">Fecha: <span
                                         class="text-sm text-gray-500 font-normal">{{ stage.procedure_date }}</span></h3>
                             </div>
-                            <div class="col-span-1 sm:col-span-3">
+                            <div class="col-span-1 sm:col-span-2 md:col-span-4">
                                 <h3 class="text-md sm:text-sm font-semibold text-gray-900">Descripción: <span class="text-sm text-gray-500 font-normal">{{ stage.description }}</span></h3>
                             </div>
+                        </div>
+                    </div>
+                    <div class="shadow border my-2 p-4 sm:grid-cols-2 rounded-lg" v-for="person in stage.people">
+                        <h2 class="text-md sm:text-sm  font-semibold text-gray-900">{{ person.type_people.name }}</h2>
+                        <div class="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900">Nombre: <span class="text-sm text-gray-500 font-normal">{{ person.name }}</span></h3>
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900">Documento de identidad: <span class="text-sm text-gray-500 font-normal">{{ person.nit }}</span></h3>
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900" v-if="person.issue_nit">Fecha de expedición: <span class="text-sm text-gray-500 font-normal">{{ person.issue_nit }}</span></h3>
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900">Correo electrónico: <span class="text-sm text-gray-500 font-normal">{{ person.email }}</span></h3>
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900" v-if="person.phone">Teléfono: <span class="text-sm text-gray-500 font-normal">{{ person.phone }}</span></h3>
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900" v-if="person.authority">Numero de autoridad: <span class="text-sm text-gray-500 font-normal">{{ person.authority }}</span></h3>
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900" v-if="person.num_dispach">Numero de despacho: <span class="text-sm text-gray-500 font-normal">{{ person.num_dispach }}</span></h3>
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900" v-if="person.num_ministry">Numero de ministerio: <span class="text-sm text-gray-500 font-normal">{{ person.num_ministry }}</span></h3>
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900" v-if="person.number">Numero: <span class="text-sm text-gray-500 font-normal">{{ person.number }}</span></h3>
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900" v-if="person.radicated">Radicado: <span class="text-sm text-gray-500 font-normal">{{ person.radicated }}</span></h3>
+                            <h3 class="text-md sm:text-sm font-semibold text-gray-900" v-if="person.address">Dirección: <span class="text-sm text-gray-500 font-normal">{{ person.address }}</span></h3>
                         </div>
                     </div>
                 </div>
@@ -62,6 +82,7 @@ defineProps({
     }
 });
 
+const stage = usePage().props.stage;
 
 const changeStatus = (id) => {
     Swal.fire({

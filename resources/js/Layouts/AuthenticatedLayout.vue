@@ -42,7 +42,7 @@ const user = usePage().props.auth.user;
                                 <NavLink :href="route('typeStage')" :active="route().current('typeStage')" v-if="user.is_admin">
                                     Tipo de Etapas
                                 </NavLink>
-                                <NavLink :href="route('people')" :active="route().current('people')">
+                                <NavLink :href="route('people')" :active="route().current('people')" v-if="user.is_admin">
                                     Personas
                                 </NavLink>
                                 <NavLink :href="route('processes')" :active="route().current('processes')">
@@ -120,7 +120,7 @@ const user = usePage().props.auth.user;
                         <ResponsiveNavLink :href="route('people')" :active="route().current('people')" v-if="user.is_admin">
                             Personas
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('processes')" :active="route().current('processes')" v-if="user.is_admin">
+                        <ResponsiveNavLink :href="route('processes')" :active="route().current('processes')">
                             Procesos
                         </ResponsiveNavLink>
                     </div>

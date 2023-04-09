@@ -33,4 +33,9 @@ class People extends Model
     {
         return $this->hasMany(Process::class);
     }
+
+    public function stages()
+    {
+        return $this->belongsToMany(Stage::class, 'people_stages');
+    }
 }

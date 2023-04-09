@@ -8,6 +8,7 @@ use App\Models\Stage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use SebastianBergmann\Type\TrueType;
 
 class ProcessController extends Controller
 {
@@ -258,8 +259,17 @@ class ProcessController extends Controller
     
     public function changeStatus(Process $process)
     {
+
         $process->status = !$process->status;
         $process->save();
+
+        $stages = Stage::where('process_id', $process->id)->get();
+        foreach ($stages as $stage) {
+            if($stage->status){
+                $stage->status = !$stage->status;
+                $stage->save();
+            }
+        }
         return redirect()->route('processes.show', $process->id);
     }
     

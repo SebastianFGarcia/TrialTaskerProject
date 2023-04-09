@@ -8,7 +8,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <HeaderTable route_to="processes.create" :getData="getData" />
-                    <div class="grid gap-3 w-full">
+                    <div class="grid gap-3 w-full" v-if="processes.data.length != 0">
                         <a class="grid gap-1 shadow border p-4 sm:grid-cols-2 lg:grid-cols-4 rounded-lg cursor-pointer" v-for="process in processes.data" :key="process.id" :class="{ 'bg-slate-50 hover:bg-slate-100': process.status, 'bg-orange-50 hover:bg-orange-100': !process.status }" :href="route('processes.show', process.id)">
                             <div>
                                 <h3 class="text-lg sm:text-sm font-semibold text-gray-900">Nombre: <span class="text-sm text-gray-500 font-normal">{{ process.name }}</span></h3>
@@ -29,7 +29,15 @@
                             </div>
                         </a>
                     </div>
-                    <Pagination :data="processes" :getData="getData" />
+                    <div class="grid gap-3 w-full mt-4" v-else>
+                        <a class="shadow border p-4 rounded-lg cursor-pointer" :href="route('processes.create')"> 
+                            <div class="grid place-content-center w-full">
+                                <p class="text-lg sm:text-sm font-semibold text-gray-500">No hay procesos registrados. <span class="text-sm text-gray-500 font-normal">Click aquí para crear uno</span></p>
+                                <IconCirclePlus class="w-full grid place-content-center text-gray-300" :size="70" stroke-width="1"/>
+                            </div>
+                        </a>
+                    </div>
+                    <Pagination :data="processes" :getData="getData" v-if="processes.data.length != 0" />
                 </div>
             </div>
         </div>
@@ -38,6 +46,7 @@
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { IconEdit, IconArrowLeft, IconTrash, IconCirclePlus} from '@tabler/icons-vue';
 import Pagination from '@/Components/Pagination.vue';
 import HeaderTable from '@/Components/HeaderTable.vue';
 import { Head, usePage, router } from '@inertiajs/vue3';
