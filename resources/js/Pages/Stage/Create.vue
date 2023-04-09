@@ -7,7 +7,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <form class="grid gap-2 md:gap-4 lg:gap-6 md:grid-cols-2">
+                    <form class="grid gap-2 md:gap-4 lg:gap-6 md:grid-cols-2" enctype="multipart/form-data">
                         <div class="flex flex-col w-full gap-4 md:border-r-2 ">
                             <div class="flex flex-col w-full gap-2">
                                 <InputLabel for="type_stage_id" value="Seleccione la etapa:" />
@@ -57,7 +57,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="flex justify-end w-full md:w-10/12">
                             <SecondaryButton @click="save" :disabled="form.processing"> Guardar </SecondaryButton>
@@ -230,6 +229,7 @@ const form = useForm({
     process_id: process.id,
     type_stage_id: '',
     people: [],
+    files: null,
 });
 
 const formPeople = useForm({
@@ -285,9 +285,6 @@ const searchPeople = () => {
         form.reset();
     }
 }
-
-
-
 
 const savePeople = () => {
     formPeople.post(route('stages.validatePeople'), {

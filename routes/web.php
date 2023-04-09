@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\StageController;
@@ -28,6 +30,14 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
+});
+
+Route::group([
+    'middleware' => ['auth', 'verified'],
+    'prefix' => 'home',
+    'controller' => HomeController::class,
+], function () {
+    Route::get('/', 'index')->name('home');
 });
 
 Route::group([
@@ -115,7 +125,5 @@ Route::group([
     Route::get('/{stage}', 'show')->name('stages.show');
     Route::post('/', 'store')->name('stages.store');
 });
-
-
 
 require __DIR__.'/auth.php';

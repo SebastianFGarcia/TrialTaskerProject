@@ -152,7 +152,7 @@ const destroy = (id) => {
 const changeStatus = (id) => {
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "Todos las etapas que estén en proceso se cambiarán a finalizado",
+        text: "Todas las etapas que estén en proceso se cambiarán a finalizado",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

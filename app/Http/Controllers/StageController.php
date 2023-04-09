@@ -8,6 +8,8 @@ use App\Models\Stage;
 use App\Models\TypePeople;
 use App\Models\TypeStage;
 use App\Models\PeopleStage;
+use App\Models\File;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -33,7 +35,7 @@ class StageController extends Controller
         ]);
         
     }
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -50,20 +52,20 @@ class StageController extends Controller
         $stage->save();
 
         $groupPeople = $request->people; 
+        if($groupPeople != null)
+            foreach ($groupPeople as $people) {
+                if ($people['id'] == null) {
+                    $people = People::create($people);
+                } else {
+                    $peopleupdate = People::find($people['id']);
+                    $peopleupdate->update($people);
+                }
 
-        foreach ($groupPeople as $people) {
-            if ($people['id'] == null) {
-                $people = People::create($people);
-            } else {
-                $peopleupdate = People::find($people['id']);
-                $peopleupdate->update($people);
+                $peopleStage = new PeopleStage();
+                $peopleStage->people_id = $people['id'];
+                $peopleStage->stage_id = $stage->id;
+                $peopleStage->save();
             }
-
-            $peopleStage = new PeopleStage();
-            $peopleStage->people_id = $people['id'];
-            $peopleStage->stage_id = $stage->id;
-            $peopleStage->save();
-        }
 
         return redirect()->route('stages.show', $stage->id);
 

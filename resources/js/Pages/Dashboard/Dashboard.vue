@@ -2,7 +2,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage, router } from '@inertiajs/vue3';
 import Sessions from './Partials/Sessions.vue';
-import { watchEffect } from 'vue';
 
 
 defineProps({

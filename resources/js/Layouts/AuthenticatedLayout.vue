@@ -23,14 +23,20 @@ const user = usePage().props.auth.user;
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('dashboard')" v-if="user.is_admin">
+                                    <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
+                                </Link>
+                                <Link :href="route('home')" v-if="!user.is_admin">
                                     <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('home')" :active="route().current('home')" v-if="!user.is_admin">
+                                    Inicio
+                                </NavLink>
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')" v-if="user.is_admin">
                                     Dashboard
                                 </NavLink>
                                 <NavLink :href="route('users')" :active="route().current('users')" v-if="user.is_admin">
@@ -45,7 +51,7 @@ const user = usePage().props.auth.user;
                                 <NavLink :href="route('people')" :active="route().current('people')" v-if="user.is_admin">
                                     Personas
                                 </NavLink>
-                                <NavLink :href="route('processes')" :active="route().current('processes')">
+                                <NavLink :href="route('processes')" :active="route().current('processes')" v-if="!user.is_admin">
                                     Procesos
                                 </NavLink>
                             </div>
