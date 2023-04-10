@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <link rel="icon" href="https://res.cloudinary.com/dcvsxucd4/image/upload/v1681155037/trialTasker/favicon_vpj4j0.ico">
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->

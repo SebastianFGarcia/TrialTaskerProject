@@ -86,12 +86,6 @@ const submit = () => {
                     class="text-sm text-[#615a5d] hover:text-gray-900">
                     ¿Olvidaste tu contraseña?
                 </Link>
-                <!-- <Link
-                    v-if="canRegister" 
-                    :href="route('welcome')"
-                    class="text-sm text-[#615a5d] hover:text-gray-900">
-                    Atras
-                </Link> -->
             </div>
 
             <div class="flex items-center justify-center mt-4">

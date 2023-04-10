@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'email' => 'test@example.com',
+            'email' => 'trialtaskerapp@gmail.com',
             'is_admin' => true,
         ]);
         User::factory(20)->create();
