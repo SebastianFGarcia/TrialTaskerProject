@@ -64,15 +64,15 @@
                             </div>
                             <div class="flex flex-col w-full gap-2">
                                 <div class="p-2 sm:p-3 bg-gray-50 shadow sm:rounded-lg" v-for=" (file,index) in groupFiles">
-                                    <a :href="file.url" class="flex justify-between gap-2 text-sm" target="_blank">
-                                        <p>{{file.original_filename}}.{{ file.format }}</p>
-                                        <div class="flex gap-2">
+                                    <div class="flex justify-between gap-2 text-sm">
+                                        <a :href="file.url" target="_blank">{{file.original_filename}}.{{ file.format }}</a>
+                                        <div class="flex gap-2" >
                                             <button type="button" @click="removeFile(index)"
                                                 class="text-red-600 font-medium text-sm ">
                                                 <IconTrash :size="16" />
                                             </button>
                                         </div>
-                                    </a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -216,7 +216,6 @@ const actionsPeople = ref(false);
 const edit = ref(false);
 const create = ref(true);
 const groupPeople = ref([]);
-const inputFile = ref(null);
 const groupFiles = ref([]);
 
 defineProps({
@@ -434,8 +433,8 @@ const removeFile = (index) => {
 };
 
 const save = () => {
+    form.files=[];
     groupFiles.value.forEach((file) => {
-        form.files=[];
         form.files.push({
             original_filename: file.original_filename,
             url: file.url,

@@ -85,7 +85,7 @@ class StageController extends Controller
 
     public function edit(Stage $stage): Response
     {
-        $stage->load('typeStage', 'process', 'people.typePeople', 'people');
+        $stage->load('typeStage', 'process', 'people.typePeople', 'people', 'files');
         return Inertia::render('Stage/Edit', [
             'stage' => $stage,
             'types_people' => TypePeople::all(),
@@ -128,6 +128,21 @@ class StageController extends Controller
             $peopleStage->people_id = $people['id'];
             $peopleStage->stage_id = $stage->id;
             $peopleStage->save();
+        }
+
+        $groupFiles = $request->input('files');
+        $filesStage = File::where('stage_id', $stage->id)->get();
+        foreach ($filesStage as $file) {
+            $file->delete();
+        }
+        if($groupFiles != null){
+            foreach ($groupFiles as $file) {
+               File::create([
+                     'name' => $file['original_filename'],
+                     'url' => $file['url'],
+                     'stage_id' => $stage->id
+               ]);
+            }
         }
             
         return redirect()->route('stages.show', $stage->id);
