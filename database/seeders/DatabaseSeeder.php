@@ -27,10 +27,11 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory(20)->create();
         $this->call(TypePeopleSeeder::class);
-        TypeStage::factory(20)->create();
+        $this->call(TypeStageSeeder::class);
+        // TypeStage::factory(20)->create();
         People::factory(20)->create();
         Process::factory(20)->create();
-        Stage::factory(20)->create();
+        // Stage::factory(20)->create();
 
 
         // crea registros de una semana hasta hoy para la tabla PlataformUsageRegister
