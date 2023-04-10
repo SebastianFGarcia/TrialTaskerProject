@@ -9,7 +9,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div class="grid md:grid-cols-2 place-items-center gap-2 p-6 sm:px-20 bg-white  border-b border-gray-200">
+                    <div class="grid w-full md:grid-cols-2 place-items-center gap-2 p-6 sm:px-20 bg-white  border-b border-gray-200">
                         <div>
                             <h2 class="text-2xl leading-tight text-gray-800">
                                 Bienvenido a nuestra aplicación de gestión de procesos de abogados. Simplifique su trabajo diario y aumente la productividad de su equipo con nuestra herramienta fácil de usar.
@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="flex justify-center">
-                            <Amico class="w-96 h-96" />
+                            <Amico class="w-72 sm:w-96 h-w-72 sm:h-96" />
                         </div>
                     </div>
                 </div>
