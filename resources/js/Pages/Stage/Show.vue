@@ -61,6 +61,11 @@
                             <h3 class="text-md sm:text-sm font-semibold text-gray-900" v-if="person.address">Dirección: <span class="text-sm text-gray-500 font-normal">{{ person.address }}</span></h3>
                         </div>
                     </div>
+                    <div class="shadow border my-2 p-4 sm:grid-cols-2 rounded-lg" v-for="file in stage.files">
+                        <a :href="file.url" target="_blank" class="text-md sm:text-sm w-full  font-semibold text-gray-900">
+                            <p>{{ file.name }}</p>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,6 +88,7 @@ defineProps({
 });
 
 const stage = usePage().props.stage;
+
 
 const changeStatus = (id) => {
     Swal.fire({

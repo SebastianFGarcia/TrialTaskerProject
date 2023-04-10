@@ -57,6 +57,25 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="flex justify-end w-full">
+                                <button  @click="openFile" id="upload_widget" class="cloudinary-button">
+                                    Upload files
+                                </button>
+                            </div>
+                            <div class="flex flex-col w-full gap-2">
+                                <div class="p-2 sm:p-3 bg-gray-50 shadow sm:rounded-lg" v-for=" (file,index) in groupFiles">
+                                    <a :href="file.url" class="flex justify-between gap-2 text-sm" target="_blank">
+                                        <p>{{file.original_filename}}.{{ file.format }}</p>
+                                        <div class="flex gap-2">
+                                            <button type="button" @click="removeFile(index)"
+                                                class="text-red-600 font-medium text-sm ">
+                                                <IconTrash :size="16" />
+                                            </button>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="flex justify-end w-full md:w-10/12">
                             <SecondaryButton @click="save" :disabled="form.processing"> Guardar </SecondaryButton>
@@ -197,6 +216,8 @@ const actionsPeople = ref(false);
 const edit = ref(false);
 const create = ref(true);
 const groupPeople = ref([]);
+const inputFile = ref(null);
+const groupFiles = ref([]);
 
 defineProps({
     process: {
@@ -229,7 +250,7 @@ const form = useForm({
     process_id: process.id,
     type_stage_id: '',
     people: [],
-    files: null,
+    files: [],
 });
 
 const formPeople = useForm({
@@ -363,8 +384,64 @@ const closeModal = () => {
     create.value = true;
     actionsPeople.value = false;
 }
+const cloudName = "dcvsxucd4"; // replace with your own cloud name
+const uploadPreset = "preset_TrialTasker";
+
+const myWidget = cloudinary.createUploadWidget(
+  {
+    cloudName: cloudName,
+    uploadPreset: uploadPreset,
+    //cropping: true, //add a cropping step
+    // showAdvancedOptions: true,  //add advanced options (public_id and tag)
+    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
+    // multiple: false,  //restrict upload to a single file
+    // folder: "user_images", //upload files to the specified folder
+    // tags: ["users", "profile"], //add the given tags to the uploaded files
+    // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+    //clientAllowedFormats: ["pdf"], //restrict uploading to image files only
+    // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+    // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
+    // theme: "purple", //change to a purple theme
+  },
+  (error, result) => {
+    if (!error && result && result.event === "success") {
+        const file = result.info;
+        if (groupFiles.value.length == 0 ) {
+            groupFiles.value.push(file);
+        } else {
+            if (groupFiles.value.find((file) => file.original_filename == result.info.original_filename)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'El archivo ya se encuentra en la lista',
+            })
+            } else {
+            groupFiles.value.push(file);
+            }
+        }
+        console.log(groupFiles.value);
+    }
+  }
+);
+
+const openFile = (e) => {
+    e.preventDefault();
+    myWidget.open();
+};
+
+const removeFile = (index) => {
+    groupFiles.value.splice(index, 1);
+};
 
 const save = () => {
+    groupFiles.value.forEach((file) => {
+        form.files=[];
+        form.files.push({
+            original_filename: file.original_filename,
+            url: file.url,
+        });
+    });
+    console.log(form.files);
     form.people = groupPeople.value;
     form.post(route('stages.store'), {
         preserveScroll: true,
@@ -386,9 +463,6 @@ const save = () => {
         },
     });
 };
-
-
-
 </script>
 
 <style></style>

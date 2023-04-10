@@ -9,7 +9,7 @@ use App\Models\TypePeople;
 use App\Models\TypeStage;
 use App\Models\PeopleStage;
 use App\Models\File;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Cloudinary\Cloudinary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,7 +19,7 @@ class StageController extends Controller
 {
     public function show(Stage $stage)
     {
-        $stage->load('typeStage', 'process', 'people.typePeople', 'people');
+        $stage->load('typeStage', 'process', 'people.typePeople', 'people', 'files');
         return Inertia::render('Stage/Show', [
             'stage' => $stage
         ]);
@@ -37,6 +37,7 @@ class StageController extends Controller
     }
     public function store(Request $request)
     {
+        
         $request->validate([
             'name' => 'required',
             'type_stage_id' => 'required',
@@ -52,7 +53,7 @@ class StageController extends Controller
         $stage->save();
 
         $groupPeople = $request->people; 
-        if($groupPeople != null)
+        if($groupPeople != null){
             foreach ($groupPeople as $people) {
                 if ($people['id'] == null) {
                     $people = People::create($people);
@@ -66,7 +67,18 @@ class StageController extends Controller
                 $peopleStage->stage_id = $stage->id;
                 $peopleStage->save();
             }
+        }
 
+        $groupFiles = $request->input('files');
+        if($groupFiles != null){
+            foreach ($groupFiles as $file) {
+               File::create([
+                     'name' => $file['original_filename'],
+                     'url' => $file['url'],
+                     'stage_id' => $stage->id
+               ]);
+            }
+        }
         return redirect()->route('stages.show', $stage->id);
 
     }

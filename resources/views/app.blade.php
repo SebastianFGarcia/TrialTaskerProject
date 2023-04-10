@@ -14,6 +14,10 @@
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
+        <script
+            src="https://widget.cloudinary.com/v2.0/global/all.js"
+            type="text/javascript"
+            ></script>
     </head>
     <body class="font-sans antialiased">
         @inertia
