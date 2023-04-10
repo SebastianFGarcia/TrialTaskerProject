@@ -59,7 +59,7 @@
                             </div>
                             <div class="flex justify-end w-full">
                                 <button  @click="openFile" id="upload_widget" class="cloudinary-button">
-                                    Upload files
+                                    Cargar archivos
                                 </button>
                             </div>
                             <div class="flex flex-col w-full gap-2">
