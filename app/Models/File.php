@@ -14,4 +14,9 @@ class File extends Model
         'url',
         'stage_id'
     ];
+
+    public function stage()
+    {
+        return $this->belongsTo(Stage::class);
+    }
 }

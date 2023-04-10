@@ -33,4 +33,9 @@ class Stage extends Model
     {
         return $this->belongsToMany(People::class, 'people_stages');
     }
+
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
 }
